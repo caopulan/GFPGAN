@@ -78,27 +78,32 @@ def main():
         bg_upsampler = None
 
     # ------------------------ set up GFPGAN restorer ------------------------
-    if args.version == '1':
+    if args.version in ['1', '1.2', '1.3']:
+        if args.version == '1':
+            arch = 'original'
+            channel_multiplier = 1
+            model_name = 'GFPGANv1'
+        elif args.version == '1.2':
+            arch = 'clean'
+            channel_multiplier = 2
+            model_name = 'GFPGANCleanv1-NoCE-C2'
+        elif args.version == '1.3':
+            arch = 'clean'
+            channel_multiplier = 2
+            model_name = 'GFPGANv1.3'
+        else:
+            raise ValueError('')
+
+        # determine model paths
+        model_path = os.path.join('experiments/pretrained_models', model_name + '.pth')
+        if not os.path.isfile(model_path):
+            model_path = os.path.join('realesrgan/weights', model_name + '.pth')
+        if not os.path.isfile(model_path):
+            raise ValueError(f'Model {model_name} does not exist.')
+    else:
+        model_path = args.version
         arch = 'original'
         channel_multiplier = 1
-        model_name = 'GFPGANv1'
-    elif args.version == '1.2':
-        arch = 'clean'
-        channel_multiplier = 2
-        model_name = 'GFPGANCleanv1-NoCE-C2'
-    elif args.version == '1.3':
-        arch = 'clean'
-        channel_multiplier = 2
-        model_name = 'GFPGANv1.3'
-    else:
-        raise ValueError(f'Wrong model version {args.version}.')
-
-    # determine model paths
-    model_path = os.path.join('experiments/pretrained_models', model_name + '.pth')
-    if not os.path.isfile(model_path):
-        model_path = os.path.join('realesrgan/weights', model_name + '.pth')
-    if not os.path.isfile(model_path):
-        raise ValueError(f'Model {model_name} does not exist.')
 
     restorer = GFPGANer(
         model_path=model_path,
