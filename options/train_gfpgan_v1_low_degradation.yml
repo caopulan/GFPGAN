@@ -1,7 +1,7 @@
 # general settings
 name: train_GFPGANv1_512_low_degradation
 model_type: GFPGANModel
-num_gpu: auto  # officially, we use 4 GPUs
+num_gpu: 4  # officially, we use 4 GPUs
 manual_seed: 0
 
 # dataset and data loader settings
@@ -29,16 +29,16 @@ datasets:
     jpeg_range: [20, 60]  # [60, 100]
 
     # color jitter and gray
-    color_jitter_prob: 0.3
-    color_jitter_shift: 20
-    color_jitter_pt_prob: 0.3
-    gray_prob: 0.01
+#    color_jitter_prob: 0.3
+#    color_jitter_shift: 20
+#    color_jitter_pt_prob: 0.3
+#    gray_prob: 0.01
 
     # If you do not want colorization, please set
-     color_jitter_prob: ~
-     color_jitter_pt_prob: ~
-     gray_prob: 0.0 # not convert to gray
-#     gt_gray: True
+    color_jitter_prob: ~
+    color_jitter_pt_prob: ~
+    gray_prob: 0.0 # not convert to gray
+#   gt_gray: True
 
     crop_components: true
     component_path: experiments/pretrained_models/FFHQ_eye_mouth_landmarks_512.pth
