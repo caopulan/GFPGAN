@@ -101,6 +101,7 @@ path:
   pretrain_network_identity: experiments/pretrained_models/arcface_resnet18.pth
   # resume
   resume_state: ~
+  ignore_resume_networks: ['network_identity']
 
 # training settings
 train:
