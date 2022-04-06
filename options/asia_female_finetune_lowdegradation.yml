@@ -94,10 +94,10 @@ network_identity:
 
 # path
 path:
-  pretrain_network_g: ffhq_512_low.pth
+  pretrain_network_g: ffhq_512_low_g.pth
   param_key_g: params_ema
   strict_load_g: ~
-  pretrain_network_d: ~
+  pretrain_network_d: ffhq_512_low_d.pth
   pretrain_network_identity: experiments/pretrained_models/arcface_resnet18.pth
   # resume
   resume_state: ~
