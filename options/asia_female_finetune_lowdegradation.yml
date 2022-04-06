@@ -161,6 +161,16 @@ train:
     loss_weight: !!float 1e-1
   # r1 regularization for discriminator
   r1_reg_weight: 10
+  # facial component loss
+  gan_component_opt:
+    type: GANLoss
+    gan_type: vanilla
+    real_label_val: 1.0
+    fake_label_val: 0.0
+    loss_weight: !!float 1
+  comp_style_weight: 200
+  # identity loss
+  identity_weight: 10
 
   net_d_iters: 1
   net_d_init_iters: 0
