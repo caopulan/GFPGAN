@@ -393,7 +393,7 @@ class GFPGANv1(nn.Module):
 
         # decoder
         image, _ = self.stylegan_decoder([style_code],
-                                         conditions,
+                                         [],
                                          return_latents=return_latents,
                                          input_is_latent=self.input_is_latent,
                                          randomize_noise=randomize_noise)
