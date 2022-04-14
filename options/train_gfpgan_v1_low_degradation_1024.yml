@@ -1,7 +1,7 @@
 # general settings
 name: train_GFPGANv1_1024_low_degradation
 model_type: GFPGANModel
-num_gpu: 4  # officially, we use 4 GPUs
+num_gpu: 8  # officially, we use 4 GPUs
 manual_seed: 0
 
 # dataset and data loader settings
