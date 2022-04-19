@@ -30,6 +30,7 @@ class GFPGANer():
     """
 
     def __init__(self, model_path, upscale=2, arch='clean', channel_multiplier=2, bg_upsampler=None, resolution=512):
+        self.resolution = resolution
         self.upscale = upscale
         self.bg_upsampler = bg_upsampler
 
@@ -75,7 +76,7 @@ class GFPGANer():
         # initialize face helper
         self.face_helper = FaceRestoreHelper(
             upscale,
-            face_size=512,
+            face_size=resolution,
             crop_ratio=(1, 1),
             det_model='retinaface_resnet50',
             save_ext='png',
@@ -98,7 +99,7 @@ class GFPGANer():
         self.face_helper.clean_all()
 
         if has_aligned:  # the inputs are already aligned
-            img = cv2.resize(img, (512, 512))
+            img = cv2.resize(img, (self.resolution, self.resolution))
             self.face_helper.cropped_faces = [img]
         else:
             self.face_helper.read_image(img)
