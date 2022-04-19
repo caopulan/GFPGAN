@@ -25,7 +25,10 @@ def main():
         '-v', '--version', type=str, default='1.3', help='GFPGAN model version. Option: 1 | 1.2 | 1.3. Default: 1.3')
     parser.add_argument(
         '-s', '--upscale', type=int, default=2, help='The final upsampling scale of the image. Default: 2')
-
+    parser.add_argument(
+        '--channel_multiplier', type=int, default=1, help='Channel multiplier. Default: 1')
+    parser.add_argument(
+        '--resolution', type=int, default=512, help='Resolution of generator. Default: 512')
     parser.add_argument(
         '--bg_upsampler', type=str, default='realesrgan', help='background upsampler. Default: realesrgan')
     parser.add_argument(
@@ -94,6 +97,7 @@ def main():
         else:
             raise ValueError('')
 
+        resolution = 512
         # determine model paths
         model_path = os.path.join('experiments/pretrained_models', model_name + '.pth')
         if not os.path.isfile(model_path):
@@ -103,14 +107,17 @@ def main():
     else:
         model_path = args.version
         arch = 'original'
-        channel_multiplier = 1
+        channel_multiplier = args.channel_multiplier
+        resolution = args.resolution
 
     restorer = GFPGANer(
         model_path=model_path,
         upscale=args.upscale,
         arch=arch,
         channel_multiplier=channel_multiplier,
-        bg_upsampler=bg_upsampler)
+        bg_upsampler=bg_upsampler,
+        resolution=resolution
+    )
 
     # ------------------------ restore ------------------------
     for img_path in img_list:

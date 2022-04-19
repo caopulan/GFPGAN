@@ -29,7 +29,7 @@ class GFPGANer():
         bg_upsampler (nn.Module): The upsampler for the background. Default: None.
     """
 
-    def __init__(self, model_path, upscale=2, arch='clean', channel_multiplier=2, bg_upsampler=None):
+    def __init__(self, model_path, upscale=2, arch='clean', channel_multiplier=2, bg_upsampler=None, resolution=512):
         self.upscale = upscale
         self.bg_upsampler = bg_upsampler
 
@@ -62,7 +62,7 @@ class GFPGANer():
                 sft_half=True)
         elif arch == 'original':
             self.gfpgan = GFPGANv1(
-                out_size=512,
+                out_size=resolution,
                 num_style_feat=512,
                 channel_multiplier=channel_multiplier,
                 decoder_load_path=None,
